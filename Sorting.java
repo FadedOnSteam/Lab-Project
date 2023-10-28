@@ -144,4 +144,37 @@ public class Sorting {
     public static void mergeSort(String [] a){
         mergeSort(a, 0, a.length-1);
     }
+    public static void cocktailSort(String [] a){
+        String swap;
+        int n = a.length;
+        boolean swapped = true;
+        int start = 0;
+        int end = n - 1;
+
+        while(swapped){
+            swapped = false;
+            for (int i = 0; i < end; i++) {
+                if(a[i].compareTo(a[i + 1]) > 0){
+                    swap = a[i];
+                    a[i] = a[i + 1];
+                    a[i + 1] = swap;
+                    swapped = true;
+                }
+            }
+            if(swapped == false){
+                break;
+            }
+            swapped = false;
+            end = end -1;
+            for (int i = end - 1; i >= start; i--) {
+                if(a[i].compareTo(a[i + 1]) > 0){
+                    swap = a[i];
+                    a[i] = a[i + 1];
+                    a[i + 1] = swap;
+                    swapped = true;
+                }
+            }
+            start = start + 1;
+        }
+    }
 }

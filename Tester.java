@@ -2,7 +2,11 @@ import java.util.Scanner;
 import java.io.*;
 public class Tester{
     public static void main(String[] args)throws IOException{
-        File file = new File("test.txt");
+        File file = new File("dictionary.txt");
+        File fileout = new File("results.txt");
+        PrintWriter output = new PrintWriter(fileout);
+        long preTime;
+        long postTime;
         Scanner scnr = new Scanner(file);
 
         int size = findSize(scnr);
@@ -14,22 +18,78 @@ public class Tester{
         String [] c = copy(a);
         String [] d = copy(a);
         String [] e = copy(a);
+        String [] f = copy(a);
 
-        print(a);
+        preTime = System.nanoTime();
         Sorting.bubbleSort(a);
-        print(a);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "bubble sort");
 
+        preTime = System.nanoTime();
         Sorting.selectionSort(b);
-        print(b);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "selection sort");
 
+        preTime = System.nanoTime();
         Sorting.insertionSort(c);
-        print(c);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "insertion sort");
 
+        preTime = System.nanoTime();
         Sorting.quickSort(d);
-        print(d);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "quick sort");
 
+        preTime = System.nanoTime();
         Sorting.mergeSort(e);
-        print(e);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "merge sort");
+
+        preTime = System.nanoTime();
+        Sorting.cocktailSort(f);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "cocktail sort");
+
+        preTime = System.nanoTime();
+        seqSearch(a, "yellow-earth");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "sequential search for yellow-earth" );
+
+        preTime = System.nanoTime();
+        biSearch(a, "yellow-earth");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "binary search for yellow-earth");
+
+        preTime = System.nanoTime();
+        seqSearch(a, "AMARyYO");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "sequential search for AMARyYo" );
+
+        preTime = System.nanoTime();
+        biSearch(a, "AMARyYO");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "binary search for AMARyYO");
+
+        preTime = System.nanoTime();
+        seqSearch(a, "amarillo");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "sequential search for amarillo" );
+
+        preTime = System.nanoTime();
+        biSearch(a, "amarillo");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "binary search for amarillo");
+
+        preTime = System.nanoTime();
+        seqSearch(a, "yellow");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "sequential search for yellow" );
+
+        preTime = System.nanoTime();
+        biSearch(a, "yellow");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "binary search for yellow");
+        output.close();
     }
     //iterates through the dictionary once to find the amount of elements needed.
     public static int findSize(Scanner scnr){
@@ -63,5 +123,34 @@ public class Tester{
             b[i] = a[i];
         }
         return b;
+    }
+    public static boolean seqSearch(String [] a, String target){
+        for (int i = 0; i < a.length; i++) {
+            if(a[i].equals(target)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean biSearch(String [] a, String target){
+        return biSearch(a, target, 0, a.length-1);
+    }
+    private static boolean biSearch(String [] a, String target, int low, int high){
+        int midpoint = (low + high) / 2;
+        if(low > high){
+            return false;
+        }
+        else if(a[midpoint].equals(target)){
+            return true;
+        }
+        else if(a[midpoint].compareTo(target) < 0){
+            return biSearch(a, target, ++midpoint, high);
+        }
+        else{
+            return biSearch(a, target, low, --midpoint);
+        }
+    }
+    public static void addResult(PrintWriter output, long pretime, long posttime, String sortType){
+        output.println(sortType + (" took: " + (posttime - pretime) + " nanoseconds to sort/search."));
     }
 }
