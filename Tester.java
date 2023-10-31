@@ -3,7 +3,7 @@ import java.io.*;
 public class Tester{
     public static void main(String[] args)throws IOException{
         File file = new File("dictionary.txt");
-        File fileout = new File("results.txt");
+        File fileout = new File("resultsreverse.txt");
         PrintWriter output = new PrintWriter(fileout);
         long preTime;
         long postTime;
@@ -13,12 +13,18 @@ public class Tester{
         scnr.close();
         String [] a = new String [size];
         arrayGenerate(a, file);
-        
+
         String [] b = copy(a);
-        String [] c = copy(a);
-        String [] d = copy(a);
-        String [] e = copy(a);
-        String [] f = copy(a);
+        String [] c = copy(a);  
+        String [] d = copy(a);  
+        String [] e = copy(a);  
+        String [] f = copy(a);  
+        String [] a1 = copy(a);
+        String [] b1 = copy(a);
+        String [] c1 = copy(a);
+        String [] d1 = copy(a);
+        String [] e1 = copy(a);
+        String [] f1 = copy(a);
 
         preTime = System.nanoTime();
         Sorting.bubbleSort(a);
@@ -89,6 +95,77 @@ public class Tester{
         biSearch(a, "yellow");
         postTime = System.nanoTime();
         addResult(output, preTime, postTime, "binary search for yellow");
+
+        preTime = System.nanoTime();
+        Sorting.bubbleSort(a1);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "reverse bubble sort");
+
+        preTime = System.nanoTime();
+        Sorting.selectionSort(b1);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "reverse selection sort");
+
+        preTime = System.nanoTime();
+        Sorting.insertionSort(c1);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "reverse insertion sort");
+
+        preTime = System.nanoTime();
+        Sorting.quickSort(d1);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "reverse quick sort");
+
+        preTime = System.nanoTime();
+        Sorting.mergeSort(e1);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "reverse merge sort");
+
+        preTime = System.nanoTime();
+        Sorting.cocktailSort(f1);
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "reverse cocktail sort");
+        
+        preTime = System.nanoTime();
+        seqSearch(a1, "yellow-earth");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "sequential search for yellow-earth in a descending order array");
+
+        preTime = System.nanoTime();
+        biSearch(a1, "yellow-earth");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "binary search for yellow-earth in a descending order array");
+
+        preTime = System.nanoTime();
+        seqSearch(a1, "AMARyYO");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "sequential search for AMARyYo in a descending order array");
+
+        preTime = System.nanoTime();
+        biSearch(a1, "AMARyYO");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "binary search for AMARyYO in a descending order array");
+
+        preTime = System.nanoTime();
+        seqSearch(a1, "amarillo");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "sequential search for amarillo in a descending order array");
+
+        preTime = System.nanoTime();
+        biSearch(a1, "amarillo");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "binary search for amarillo in a descending order array");
+
+        preTime = System.nanoTime();
+        seqSearch(a1, "yellow");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "sequential search for yellow in a descending order array");
+
+        preTime = System.nanoTime();
+        biSearch(a1, "yellow");
+        postTime = System.nanoTime();
+        addResult(output, preTime, postTime, "binary search for yellow in a descending order array");
+
         output.close();
     }
     //iterates through the dictionary once to find the amount of elements needed.
